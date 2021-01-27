@@ -117,7 +117,7 @@ ANIM_PATH = fullfile(cur, 'gen', 'animator');
 if ~exist(ANIM_PATH,'dir')
     mkdir(ANIM_PATH);
 end
-anim = plot.cassie_load_animation(robot, gait, [], 'ExportPath', ANIM_PATH, 'SkipExporting', true); % set 'SkipExporting' = false, only for the first time!
+anim = plot.a1_load_animation(robot, gait, [], 'ExportPath', ANIM_PATH, 'SkipExporting', true); % set 'SkipExporting' = false, only for the first time!
 
 
 
