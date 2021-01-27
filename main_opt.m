@@ -4,11 +4,11 @@
 %% Setting up path
 clear; close all; clc;
 % Restore search path to factory-installed state, Start up file for MATLAB program.
-restoredefaultpath; matlabrc;  
+%restoredefaultpath; matlabrc;  
 
 % specify the path to the FROST
 % only for my computer you need change it
-frost_path  = '../../frost-dev';
+frost_path  = '../frost-dev';
 addpath(frost_path);
 frost_addpath; % initialize FROST
 cur = utils.get_root_path();
@@ -17,7 +17,7 @@ utils.init_path(export_path);
 %% robot model settings
 %cur = utils.get_root_path();
 %urdf = fullfile(cur,'urdf','casia_nnn.urdf'); % Build full file name from parts 
-urdf = fullfile(cur,'urdf','cassie.urdf'); % Build full file name from parts
+urdf = fullfile(cur,'urdf','a1.urdf'); % Build full file name from parts
 % some options
 
 % if 'delay_set' is true, the computation of system dynamics (Coriolis
@@ -57,12 +57,12 @@ end
 %% Load optimization problem
 % get the boundary values, needs to be manually set all boundaries.
 %%%%%%%%%%%
-bounds = cassie.GetBound(robot);
+bounds = a1.GetBound(robot);
 %%%%%%%%%%%
-num_grid.Jump = 10;
+num_grid.AllLeg = 10;
 % load problem
-nlp = HybridTrajectoryOptimization('jump',system, num_grid, [],'EqualityConstraintBoundary',1e-4);
-nlp.Phase(1).Plant.UserNlpConstraint = @cassie.callback.jumping;
+nlp = HybridTrajectoryOptimization('backflip',system, num_grid, [],'EqualityConstraintBoundary',1e-4);
+nlp.Phase(1).Plant.UserNlpConstraint = @cassie.callback.allleg;
 nlp.update; 
 
 nlp.configure(bounds);
