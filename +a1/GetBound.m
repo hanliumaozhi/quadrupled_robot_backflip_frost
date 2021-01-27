@@ -21,6 +21,9 @@ bounds.AllLeg = model_bounds;
 bounds.AllLeg.states.x.lb(4) = 0;
 bounds.AllLeg.states.x.ub(4) = 0;
 
+bounds.AllLeg.states.x.lb(5) = 0;
+bounds.AllLeg.states.x.ub(5) = 0;
+
 bounds.AllLeg.states.x.lb(6) = 0;
 bounds.AllLeg.states.x.ub(6) = 0;
 

@@ -62,18 +62,18 @@ bounds = a1.GetBound(robot);
 num_grid.AllLeg = 10;
 % load problem
 nlp = HybridTrajectoryOptimization('backflip',system, num_grid, [],'EqualityConstraintBoundary',1e-4);
-nlp.Phase(1).Plant.UserNlpConstraint = @cassie.callback.allleg;
+nlp.Phase(1).Plant.UserNlpConstraint = @a1.callback.allleg;
 nlp.update; 
 
 nlp.configure(bounds);
 nlp.update;
 
 %% Compile stuff if needed (only need to run for the first time)
-% compileObjective(nlp,[],[],export_path);
-% compileConstraint(nlp,[],[],export_path, {'dynamics_equation'});
+%compileObjective(nlp,[],[],export_path);
+compileConstraint(nlp,[],[],export_path, {'dynamics_equation'});
 
-compileObjective(nlp,[],[],export_path);
-compileConstraint(nlp,[],[],export_path);
+%compileObjective(nlp,[],[],export_path);
+%compileConstraint(nlp,[],[],export_path);
 
 
 %% Save expression (only need to run for the first time)
@@ -103,12 +103,12 @@ nlp.update;
 %[gait, sol, info] = opt.solve(nlp, sol); % if use previous solution "sol"
 % 3. warm start using use existing solutoin as the initial guess
 %[gait, sol, info] = opt.solve(nlp, sol, info); % if use previous solution "sol"
-[gait, sol, info, total_time] = cassie.solve(nlp);
+[gait, sol, info, total_time] = a1.solve(nlp);
 
 
  
 %% save
-save('local/tmp_casia_60mm_leg81_peizhong_gait.mat','gait','sol','info','bounds');
+save('local/backflip.mat','gait','sol','info','bounds');
 
 
 

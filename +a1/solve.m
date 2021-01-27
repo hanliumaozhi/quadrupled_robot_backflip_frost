@@ -44,7 +44,7 @@ function [gait, sol, info, total_time] = solve(nlp, x0, info)
     %     tspan{3} = tspan{1}(end) + tspan{3};
     total_time = toc(start_time);
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
-    tspan{3} = tspan{1}(end) + tspan{3};
+    %tspan{3} = tspan{1}(end) + tspan{3};
     
     gait = struct(...
         'tspan', tspan,...
