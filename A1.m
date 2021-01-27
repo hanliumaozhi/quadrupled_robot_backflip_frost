@@ -251,6 +251,35 @@ classdef A1 < RobotLinks
             
         end
         
+        function [hg] = getMomentum(obj)
+            pcom = obj.getComPosition();
+            Ag = zeros(6,obj.numState);
+            n_link = length(obj.Links);
+            Jb = cell(obj.numState,1);
+            R = cell(obj.numState,1);
+            p = cell(obj.numState,1);
+            I = cell(obj.numState,1);
+            Xg = cell(obj.numState,1);
+            A = cell(obj.numState,1);
+            for i=1:n_link
+                frame = obj.Links(i);
+                Jb{i} = getBodyJacobian(obj,frame);
+                gst = computeForwardKinematics(frame);
+                R{i} = frame.RigidOrientation(gst);
+                p{i} = frame.RigidPosition(gst);
+                I{i} = blkdiag(frame.Mass*eye(3),frame.Inertia);
+                Xg{i} = [ R{i}', -R{i}'*obj.skew(p{i}-pcom'); zeros(3), R{i}' ];
+                A{i} =  Xg{i}'*I{i}*Jb{i};
+                Ag = Ag + A{i};
+                %     vb{i} = Jb{i}*dq;
+                %     h{i} = I{i}*Jb{i}*dq;
+                %         De = De + Jb{i}'*I{i}*Jb{i};
+                %         KE = KE + 0.5 * dq'*Jb{i}'*I{i}*Jb{i}*dq;
+                %     h_tot = h_tot + Xg{i}'*h{i};
+            end
+            hg = Ag*obj.States.dx;
+        end
+        
         function ExportMomentum(obj, export_function, export_path)
             % Generates code for forward kinematics
             

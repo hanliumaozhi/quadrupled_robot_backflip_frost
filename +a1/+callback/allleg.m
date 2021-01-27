@@ -12,6 +12,18 @@ function allleg(nlp, bounds, varargin)
     
     %% other constraints
     
+    % com x
+    for k =1:21
+       addNodeConstraint(nlp, a1.constraints.com_x(nlp), ...
+           {'x'}, k, 0, 0, 'Nonlinear');
+    end
+    
+    % com y
+    for k =1:21
+       addNodeConstraint(nlp, a1.constraints.com_y(nlp), ...
+           {'x'}, k, 0, 0, 'Nonlinear');
+    end
+    
     
     %% cost
      addRunningCost(nlp, a1.costs.torque(nlp), 'u');
