@@ -21,24 +21,35 @@ bounds.AllLeg = model_bounds;
 bounds.AllLeg.states.x.lb(4) = 0;
 bounds.AllLeg.states.x.ub(4) = 0;
 
+% not pitch
 bounds.AllLeg.states.x.lb(5) = 0;
 bounds.AllLeg.states.x.ub(5) = 0;
 
 bounds.AllLeg.states.x.lb(6) = 0;
 bounds.AllLeg.states.x.ub(6) = 0;
+% model_bounds.states.x.lb(4:6) = deg2rad(-5);
+% model_bounds.states.x.ub(4:6) = deg2rad(5);
+
+bounds.AllLeg.init_com_z = 0.2;
+
+bounds.AllLeg.momentum_z.lb = -2;
+bounds.AllLeg.momentum_z.ub = 2;
+
+bounds.AllLeg.momentum_x.lb = -20;
+bounds.AllLeg.momentum_x.ub = -20;
 
 % time is VirtualConstraint
 bounds.AllLeg.time.t0.lb = 0;
 bounds.AllLeg.time.t0.ub = 0;
 bounds.AllLeg.time.t0.x0 = 0;
 
-bounds.AllLeg.time.tf.lb = 0.4;
-bounds.AllLeg.time.tf.ub = 0.4;
-bounds.AllLeg.time.tf.x0 = 0.4;
+bounds.AllLeg.time.tf.lb = 0.3;
+bounds.AllLeg.time.tf.ub = 0.3;
+bounds.AllLeg.time.tf.x0 = 0.3;
 
-bounds.AllLeg.time.duration.lb = 0.4;
-bounds.AllLeg.time.duration.ub = 0.4;
-bounds.AllLeg.time.duration.x0 = 0.4;
+bounds.AllLeg.time.duration.lb = 0.3;
+bounds.AllLeg.time.duration.ub = 0.3;
+bounds.AllLeg.time.duration.x0 = 0.3;
 
 bounds.AllLeg.time.kp = 100;
 bounds.AllLeg.time.kd = 20;

@@ -13,10 +13,10 @@ function allleg(nlp, bounds, varargin)
     %% other constraints
     
     % com x
-    for k =1:21
-       addNodeConstraint(nlp, a1.constraints.com_x(nlp), ...
-           {'x'}, k, 0, 0, 'Nonlinear');
-    end
+%     for k =1:21
+%        addNodeConstraint(nlp, a1.constraints.com_x(nlp), ...
+%            {'x'}, k, 0, 0, 'Nonlinear');
+%     end
     
     % com y
     for k =1:21
@@ -24,15 +24,44 @@ function allleg(nlp, bounds, varargin)
            {'x'}, k, 0, 0, 'Nonlinear');
     end
     
-    % com z // only for first node which base_link is 0.3m
+    % com z // only for first node which base_link 
     addNodeConstraint(nlp, a1.constraints.com_z(nlp), ...
-           {'x'}, 1, 0.28, 0.28, 'Nonlinear');
+           {'x'}, 1, bounds.init_com_z, bounds.init_com_z, 'Nonlinear');
        
     % momentum z
+    for k =1:21
     addNodeConstraint(nlp, a1.constraints.momentum_z(nlp), ...
-           {'x', 'dx'}, 21, 25, 25, 'Nonlinear');
+           {'x', 'dx'}, k, bounds.momentum_z.lb, bounds.momentum_z.ub, 'Nonlinear');
+    end
+       
+    addNodeConstraint(nlp, a1.constraints.momentum_x(nlp), ...
+           {'x', 'dx'}, 21, bounds.momentum_x.lb, bounds.momentum_x.ub, 'Nonlinear');
+       
+%    % momentum pitch
+%     addNodeConstraint(nlp, a1.constraints.momentum_ptich(nlp), ...
+%            {'x', 'dx'}, 21, 1, 1, 'Nonlinear');
+       
+    addNodeConstraint(nlp, a1.constraints.toe_x(nlp), ...
+           {'x'}, 1, 0, 0, 'Nonlinear');
+       
+%     % knee z
+%     
+%      for k=21:21
+%        addNodeConstraint(nlp, a1.constraints.fl_knee_z(nlp), ...
+%            {'x'}, k, bounds.knee_z.lb, bounds.knee_z.ub, 'Nonlinear');
+%        addNodeConstraint(nlp, a1.constraints.fr_knee_z(nlp), ...
+%            {'x'}, k, bounds.knee_z.lb, bounds.knee_z.ub, 'Nonlinear');
+%        addNodeConstraint(nlp, a1.constraints.rl_knee_z(nlp), ...
+%            {'x'}, k, bounds.knee_z.lb, bounds.knee_z.ub, 'Nonlinear');
+%        addNodeConstraint(nlp, a1.constraints.rr_knee_z(nlp), ...
+%            {'x'}, k, bounds.knee_z.lb, bounds.knee_z.ub, 'Nonlinear');
+%      end
+    
+   
+       
     
     %% cost
      addRunningCost(nlp, a1.costs.torque(nlp), 'u');
+     %addRunningCost(nlp, a1.costs.q_error(nlp), 'x');
     
 end

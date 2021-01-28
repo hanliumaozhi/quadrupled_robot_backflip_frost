@@ -42,7 +42,6 @@ LOAD_PATH = fullfile(cur, 'gen/sym');
 %% load robot model
 % load the robot model
 robot = sys.LoadModel(urdf);  % call  loadDynamics()
-
 if LOAD
     loadDynamics(robot, LOAD_PATH, delay_set, {},'OmitCoriolisSet',OMIT_CORIOLIS);
     %robot.loadDynamics(LOAD_PATH, OMIT_CORIOLIS);
@@ -70,10 +69,10 @@ nlp.update;
 
 %% Compile stuff if needed (only need to run for the first time)
 %compileObjective(nlp,[],[],export_path);
-%compileConstraint(nlp,[],[],export_path, {'dynamics_equation'});
+compileConstraint(nlp,[],[],export_path, {'dynamics_equation'});
 
-compileObjective(nlp,[],[],export_path);
-compileConstraint(nlp,[],[],export_path);
+%compileObjective(nlp,[],[],export_path);
+%compileConstraint(nlp,[],[],export_path);
 
 
 %% Save expression (only need to run for the first time)
@@ -115,9 +114,9 @@ save('local/backflip.mat','gait','sol','info','bounds');
 %% animation
 ANIM_PATH = fullfile(cur, 'gen', 'animator');
 if ~exist(ANIM_PATH,'dir')
-    mkdir(ANIM_PATH);
+    mkdir(ANIM_PATH); 
 end
-anim = plot.a1_load_animation(robot, gait, [], 'ExportPath', ANIM_PATH, 'SkipExporting', false); % set 'SkipExporting' = false, only for the first time!
+anim = plot.a1_load_animation(robot, gait, [], 'ExportPath', ANIM_PATH, 'SkipExporting', true); % set 'SkipExporting' = false, only for the first time!
 
 
 
