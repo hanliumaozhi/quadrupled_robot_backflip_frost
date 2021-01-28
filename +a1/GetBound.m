@@ -14,8 +14,18 @@ model_bounds.states.x.lb(5) = -10;
 model_bounds.states.x.ub(5) = 10;
 
 
-%% Jump
+%% Allleg Jump
 bounds.AllLeg = model_bounds;
+
+% roll and yaw
+bounds.AllLeg.states.x.lb(4) = 0;
+bounds.AllLeg.states.x.ub(4) = 0;
+
+bounds.AllLeg.states.x.lb(5) = 0;
+bounds.AllLeg.states.x.ub(5) = 0;
+
+bounds.AllLeg.states.x.lb(6) = 0;
+bounds.AllLeg.states.x.ub(6) = 0;
 
 % time is VirtualConstraint
 bounds.AllLeg.time.t0.lb = 0;

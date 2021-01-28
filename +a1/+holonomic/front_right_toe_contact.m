@@ -3,5 +3,6 @@ function contact = front_right_toe_contact(robot)
     contact.frame = ToContactFrame(robot.ContactPoints.front_right_toe,...
         'PointContactWithFriction');
     contact.fric_coef.mu = 0.6;
-    contact.fric_coef.gamma = 100;  
+    contact.fric_coef.gamma = 100;
+    contact.geometry.RefFrame = eye(3);
 end
