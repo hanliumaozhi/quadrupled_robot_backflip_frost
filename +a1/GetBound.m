@@ -101,6 +101,66 @@ bounds.AllLeg.params.ptime.lb = [bounds.AllLeg.time.tf.lb, bounds.AllLeg.time.t0
 bounds.AllLeg.params.ptime.ub = [bounds.AllLeg.time.tf.ub, bounds.AllLeg.time.t0.ub];
 bounds.AllLeg.params.ptime.x0 = [bounds.AllLeg.time.t0.x0, bounds.AllLeg.time.tf.x0];
 
+%% rear leg 
+
+bounds.RearLeg = model_bounds;
+
+% roll and yaw
+bounds.RearLeg.states.x.lb(4) = 0;
+bounds.RearLeg.states.x.ub(4) = 0;
+
+bounds.RearLeg.states.x.lb(6) = 0;
+bounds.RearLeg.states.x.ub(6) = 0;
+
+% not pitch
+bounds.RearLeg.states.x.lb(5) = -1.6;
+bounds.RearLeg.states.x.ub(5) = 0;
+
+% time is VirtualConstraint
+bounds.RearLeg.time.t0.lb = 0;
+bounds.RearLeg.time.t0.ub = 0;
+bounds.RearLeg.time.t0.x0 = 0;
+
+bounds.RearLeg.time.tf.lb = 0.3;
+bounds.RearLeg.time.tf.ub = 0.3;
+bounds.RearLeg.time.tf.x0 = 0.3;
+
+bounds.RearLeg.time.duration.lb = 0.3;
+bounds.RearLeg.time.duration.ub = 0.3;
+bounds.RearLeg.time.duration.x0 = 0.3;
+
+bounds.RearLeg.time.kp = 100;
+bounds.RearLeg.time.kd = 20;
+
+% contact constraint force
+bounds.RearLeg.inputs.ConstraintWrench.fRearLeftToe.lb = -10000;
+bounds.RearLeg.inputs.ConstraintWrench.fRearLeftToe.ub = 10000;
+bounds.RearLeg.inputs.ConstraintWrench.fRearLeftToe.x0 = 10;
+
+bounds.RearLeg.inputs.ConstraintWrench.fRearRightToe.lb = -10000;
+bounds.RearLeg.inputs.ConstraintWrench.fRearRightToe.ub = 10000;
+bounds.RearLeg.inputs.ConstraintWrench.fRearRightToe.x0 = 10;
+
+% contact constraint position
+bounds.RearLeg.params.pRearLeftToe.lb = [-1;-1;0];
+bounds.RearLeg.params.pRearLeftToe.ub = [1;1;0];
+bounds.RearLeg.params.pRearLeftToe.x0 = [0;0;0];
+
+bounds.RearLeg.params.pRearRightToe.lb = [-1;-1;0];
+bounds.RearLeg.params.pRearRightToe.ub = [1;1;0];
+bounds.RearLeg.params.pRearRightToe.x0 = [0;0;0];
+
+
+bounds.RearLeg.params.atime.lb = -10*ones(6*12,1);
+bounds.RearLeg.params.atime.ub = 10*ones(6*12,1);
+bounds.RearLeg.params.atime.x0 = zeros(6*12,1);
+
+bounds.RearLeg.params.ptime.lb = [bounds.RearLeg.time.tf.lb, bounds.RearLeg.time.t0.lb];
+bounds.RearLeg.params.ptime.ub = [bounds.RearLeg.time.tf.ub, bounds.RearLeg.time.t0.ub];
+bounds.RearLeg.params.ptime.x0 = [bounds.RearLeg.time.t0.x0, bounds.RearLeg.time.tf.x0];
+
+%% impact
+bounds.LiftA = model_bounds;
 
 
 end

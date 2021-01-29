@@ -59,9 +59,12 @@ end
 bounds = a1.GetBound(robot);
 %%%%%%%%%%%
 num_grid.AllLeg = 10;
+num_grid.RearLeg = 10;
 % load problem
 nlp = HybridTrajectoryOptimization('backflip',system, num_grid, [],'EqualityConstraintBoundary',1e-4);
 nlp.Phase(1).Plant.UserNlpConstraint = @a1.callback.allleg;
+nlp.Phase(2).Plant.UserNlpConstraint = @a1.callback.lifta;
+nlp.Phase(3).Plant.UserNlpConstraint = @a1.callback.rearleg;
 nlp.update; 
 
 nlp.configure(bounds);
@@ -116,7 +119,7 @@ ANIM_PATH = fullfile(cur, 'gen', 'animator');
 if ~exist(ANIM_PATH,'dir')
     mkdir(ANIM_PATH); 
 end
-anim = plot.a1_load_animation(robot, gait, [], 'ExportPath', ANIM_PATH, 'SkipExporting', false); % set 'SkipExporting' = false, only for the first time!
+anim = plot.a1_load_animation(robot, gait, [], 'ExportPath', ANIM_PATH, 'SkipExporting', true); % set 'SkipExporting' = false, only for the first time!
 
 
 

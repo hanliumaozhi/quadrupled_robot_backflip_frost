@@ -1,5 +1,5 @@
 function domain = all_leg_support(model, load_path, varargin)
-    % construct the right stance domain of Cassie
+    % construct the all leg contact
     
     % Parse inputs
     p = inputParser;
