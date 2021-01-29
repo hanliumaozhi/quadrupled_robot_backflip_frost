@@ -58,13 +58,10 @@ end
 %%%%%%%%%%%
 bounds = a1.GetBound(robot);
 %%%%%%%%%%%
-num_grid.AllLeg = 10;
 num_grid.RearLeg = 10;
 % load problem
 nlp = HybridTrajectoryOptimization('backflip',system, num_grid, [],'EqualityConstraintBoundary',1e-4);
-nlp.Phase(1).Plant.UserNlpConstraint = @a1.callback.allleg;
-nlp.Phase(2).Plant.UserNlpConstraint = @a1.callback.lifta;
-nlp.Phase(3).Plant.UserNlpConstraint = @a1.callback.rearleg;
+nlp.Phase(1).Plant.UserNlpConstraint = @a1.callback.rearleg;
 nlp.update; 
 
 nlp.configure(bounds);
