@@ -28,11 +28,15 @@ function allleg(nlp, bounds, varargin)
     addNodeConstraint(nlp, a1.constraints.com_z(nlp), ...
            {'x'}, 1, bounds.init_com_z, bounds.init_com_z, 'Nonlinear');
        
+       
+     addNodeConstraint(nlp, a1.constraints.com_z(nlp), ...
+           {'x'}, 21, bounds.end_com_z, bounds.end_com_z, 'Nonlinear');
+       
     % momentum z
-    for k =1:21
-    addNodeConstraint(nlp, a1.constraints.momentum_z(nlp), ...
-           {'x', 'dx'}, k, bounds.momentum_z.lb, bounds.momentum_z.ub, 'Nonlinear');
-    end
+%     for k =1:21
+%     addNodeConstraint(nlp, a1.constraints.momentum_z(nlp), ...
+%            {'x', 'dx'}, k, bounds.momentum_z.lb, bounds.momentum_z.ub, 'Nonlinear');
+%     end
        
     addNodeConstraint(nlp, a1.constraints.momentum_x(nlp), ...
            {'x', 'dx'}, 21, bounds.momentum_x.lb, bounds.momentum_x.ub, 'Nonlinear');

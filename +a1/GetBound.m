@@ -32,6 +32,8 @@ bounds.AllLeg.states.x.ub(6) = 0;
 
 bounds.AllLeg.init_com_z = 0.2;
 
+bounds.AllLeg.end_com_z = 0.2;
+
 bounds.AllLeg.momentum_z.lb = -2;
 bounds.AllLeg.momentum_z.ub = 2;
 
