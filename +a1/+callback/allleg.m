@@ -17,6 +17,12 @@ function allleg(nlp, bounds, varargin)
 %        addNodeConstraint(nlp, a1.constraints.com_x(nlp), ...
 %            {'x'}, k, 0, 0, 'Nonlinear');
 %     end
+
+    % vx
+    for k =1:21
+       addNodeConstraint(nlp, a1.constraints.vel_dx(nlp), ...
+           {'dx'}, k, bounds.vel_x_arr(k)-0.01, bounds.vel_x_arr(k)+0.01, 'Nonlinear');
+    end
     
     % com y
     for k =1:21
@@ -38,14 +44,14 @@ function allleg(nlp, bounds, varargin)
 %            {'x', 'dx'}, k, bounds.momentum_z.lb, bounds.momentum_z.ub, 'Nonlinear');
 %     end
        
-    addNodeConstraint(nlp, a1.constraints.momentum_x(nlp), ...
-           {'x', 'dx'}, 21, bounds.momentum_x.lb, bounds.momentum_x.ub, 'Nonlinear');
-       
 %    % momentum pitch
 %     addNodeConstraint(nlp, a1.constraints.momentum_ptich(nlp), ...
 %            {'x', 'dx'}, 21, 1, 1, 'Nonlinear');
        
     addNodeConstraint(nlp, a1.constraints.toe_x(nlp), ...
+           {'x'}, 1, 0, 0, 'Nonlinear');
+       
+       addNodeConstraint(nlp, a1.constraints.toe_y(nlp), ...
            {'x'}, 1, 0, 0, 'Nonlinear');
        
 %     % knee z

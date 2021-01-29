@@ -71,11 +71,11 @@ nlp.configure(bounds);
 nlp.update;
 
 %% Compile stuff if needed (only need to run for the first time)
-%compileObjective(nlp,[],[],export_path);
-%compileConstraint(nlp,[],[],export_path, {'dynamics_equation'});
-
 compileObjective(nlp,[],[],export_path);
-compileConstraint(nlp,[],[],export_path);
+compileConstraint(nlp,[],[],export_path, {'dynamics_equation'});
+
+%compileObjective(nlp,[],[],export_path);
+%compileConstraint(nlp,[],[],export_path);
 
 
 %% Save expression (only need to run for the first time)
